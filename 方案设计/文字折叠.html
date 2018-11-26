@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        .ellipsis {
+            position: relative;
+            /* background: rgb(230, 230, 230); */
+            height: 36px;
+            line-height: 18px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .ellipsis-container {
+            position: relative;
+            /* text-overflow: ellipsis; */
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            color: #000;
+            width: 27em;
+        }
+
+        .ellipsis-content {
+            display: inline;
+            vertical-align: top;
+            font-size: 1em;
+        }
+
+        .ellipsis-ghost {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ellipsis-ghost:before {
+            content: "";
+            display: block;
+            float: right;
+            width: 50%;
+            height: 100%;
+        }
+
+        .ellipsis-placeholder {
+            content: "";
+            display: block;
+            float: right;
+            width: 50%;
+            height: 36px;
+        }
+
+        .ellipsis-more {
+            float: right;
+            font-size: 1em;
+            width: 85px;
+            height: 18px;
+            margin-top: -18px;
+            background: linear-gradient(to right, transparent, #fff 55%);
+            text-align: end;
+        }
+
+        .ellipsis-more .aa {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ellipsis">
+        <div class="ellipsis-container">
+            <div class="ellipsis-content">11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</div>
+            <div class="ellipsis-ghost">
+                <div class="ellipsis-placeholder"></div>
+                <div class="ellipsis-more"><span class="aa">...更多</span></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+      $(function(){
+        var defHeight = $('.ellipsis-content').height();
+        $(".ellipsis-more").click (function (e) {
+        if ( $(".aa").text() == "收起") {
+         $(".ellipsis").css("height","36px")
+         $(".ellipsis-container").css('webkitLineClamp','2')
+         $(".ellipsis-placeholder").css("height","36px")
+         $(".aa").text("...更多")
+        //  $(".bb").css('dispaly','inline')
+        } else {
+          $(".ellipsis").css("height",defHeight)
+          $(".ellipsis-container").css('webkitLineClamp','99')
+          $(".ellipsis-placeholder").css("height",defHeight)
+          $(".aa").text("收起")
+        //   $(".bb").css('display','none')
+        }
+    })
+      })
+</script>

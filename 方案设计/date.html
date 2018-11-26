@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/vue/2.5.17-beta.0/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .month {
+            text-align: center;
+        }
+
+        .weekdays {
+            padding: 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+
+        }
+
+        .weekdays li {
+            display: inline-block;
+            width: 13.6%;
+            text-align: center;
+        }
+
+        .days {
+            height: 400px;
+            padding: 0;
+            background: #ffffff;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+
+        }
+
+        .days li {
+            list-style-type: none;
+            display: inline-block;
+            width: 14.2%;
+            height: 70px;
+            text-align: center;
+            padding-bottom: 15px;
+            padding-top: 15px;
+            font-size: 1rem;
+            color: #000;
+        }
+
+       .active {
+            padding: 6px 10px;
+            border-radius: 50%;
+            background: #00b8ec;
+            color: #fff;
+        }
+
+        .other-month {
+            padding: 5px;
+            color: gainsboro;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <span>{{current.getMonth()+1}}月{{current.getDate()}}</span>
+        <ul class="weekdays">
+            <li>日</li>
+            <li>一</li>
+            <li>二</li>
+            <li>三</li>
+            <li>四</li>
+            <li>五</li>
+            <li>六</li>
+        </ul>
+        <ul class="days">
+            <li v-for="dayobject in days_r">
+                <span v-if="dayobject.isSign==true" class="active">{{dayobject.date}}</span>
+                <span v-else>{{ dayobject.date}}</span>
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            current: new Date(),
+            days: '000000000000001111111000000000',
+            days_r: []
+            // active_days: []
+        },
+        created() {
+            this.init()
+        },
+        methods: {
+            init() {
+                this.render(this.current);
+            },
+            render(date) {
+                this.days = this.days.split('');
+                console.log(this.days)
+                var begin_date = new Date(date);
+                begin_date.setDate(1);
+                var weekday = begin_date.getDay();
+                var days_count =
+                    new Date(
+                        begin_date.getFullYear(),
+                        begin_date.getMonth() + 1,
+                        0
+                    ).getDate() +
+                        weekday <=
+                        35
+                        ? 35
+                        : 42;
+                for (var i = 1 - weekday; i < days_count - weekday; i++) {
+                    if (i < 1 || i > this.days.length) {
+                        this.days_r.push({
+                            date: '',
+                            isSign: false
+                        });
+                    }
+                    else {
+                        this.days_r.push({
+                            date: i,
+                            isSign: parseInt(this.days[i]) ? true : false
+                        });
+                    }
+                }
+            }
+        }
+    })
+</script>
+
+</html>

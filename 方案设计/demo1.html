@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        body {
+            margin-top: 200px;
+            text-align: center;
+        }
+
+        .abc {
+            text-align: left;
+            word-break: break-all;
+
+            /* text-overflow: ellipsis; */
+
+            /* display: -webkit-box; */
+            /** 对象作为伸缩盒子模型显示 **/
+
+            -webkit-box-orient: vertical;
+            /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+
+            -webkit-line-clamp: 2;
+            /** 显示的行数 **/
+
+            overflow: hidden;
+            /** 隐藏超出的内容 **/
+        }
+    </style>
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+       $(function(){
+        function getNewline(val) {
+                var str = new String(val);
+                var bytesCount = 0;
+                var s = "";
+                for (var i = 0, n = str.length; i < n; i++) {
+                    var c = str.charCodeAt(i);
+                    //统计字符串的字符长度
+                    if (c >= 0 && c <= 128) {
+                        bytesCount += 1;
+                    } else {
+                        bytesCount += 2;
+                    }
+                    //换行
+                    s += str.charAt(i);
+                    if (bytesCount >= 54) {
+                        s = s + '\n';
+                        //重置
+                        bytesCount = 0;
+                    }
+                }
+                return s;
+            }
+            var str = $('.abc').text();
+            var more = '...更多';
+            var repStr=str.substring(0,51)+more
+            console.log(repStr)
+            // str.replace(repStr,more)
+            var newStr = getNewline(repStr);
+            $('.abc').text(newStr);
+       })
+    </script>
+</head>
+
+<body>
+    <table style="margin-left:35%">
+        <tr>
+            <th>教师</th>
+        </tr>
+        <tr>
+            <td>
+                <p class="abc">阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如</p>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文字隐藏</title>
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.5.17-beta.0/vue.js"></script>
+    <style>
+        .txt {
+            width: 27em;
+            word-break: break-all;
+
+            text-overflow: ellipsis;
+
+            display: -webkit-box;
+            /** 对象作为伸缩盒子模型显示 **/
+
+            -webkit-box-orient: vertical;
+            /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+
+            -webkit-line-clamp: 2;
+            /** 显示的行数 **/
+
+            overflow: hidden;
+            /** 隐藏超出的内容 **/
+        }
+        .txt1 {
+            width: 27em;
+        }
+        .sq {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="flag" class="txt" v-html='msg' @click=toggle></div>
+        <div v-else  class="txt1" @click=toggle v-html='msg'></div>
+    </div>
+</body>
+
+</html>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如',
+            msg1: '阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如阿里山的姑娘美如',
+            more:"<span class='more'>...更多</span>",
+            sq:"<span class='sq'>收起</span>",
+            count:0,
+            flag:true,
+        },
+        mounted() {
+        this.msg=this.msg.substring(0,51)+this.more
+        },
+        methods: {
+            toggle(){
+                this.count++;
+                if((this.count+1)%2==0){
+                    this.flag=false;
+                    this.msg=this.msg1+this.sq
+                }else{
+                    this.flag=true;
+                    this.msg=this.msg.substring(0,51)+this.more
+                }
+            }
+        }
+       
+    })
+</script>
